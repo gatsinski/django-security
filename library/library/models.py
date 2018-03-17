@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -14,6 +15,9 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('book_detail', kwargs={'pk': self.pk})
 
 
 class Author(models.Model):
