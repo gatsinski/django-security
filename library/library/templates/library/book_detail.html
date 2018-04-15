@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ object.title }}</h1>
+  <h1>{{ object.title }}</h1>
+  <ul>
     {% for author in object.authors.all %}
-        <p>{{ author.name }}</p>
+      <li>
+        <a href="{% url 'author_detail' author.pk %}">
+          {{ author.name }}
+        </a>
+      </li>
     {% endfor %}
+  </ul>
+  <p>
+    <a href="{% url 'book_list' %}">Back to book list</a>
+  </p>
 {% endblock %}
