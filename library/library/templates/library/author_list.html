@@ -2,11 +2,11 @@
 
 {% block content %}
   <ul>
-    {% for book in object_list %}
+    {% for author in object_list %}
       <li>
-        <a href="{% url 'book_detail' book.pk %}">
+        <a href="{% url 'author_detail' author.pk %}">
           <h2>
-            {{ book.title }}
+            {{ author.name }}
           </h2>
         </a>
       </li>
