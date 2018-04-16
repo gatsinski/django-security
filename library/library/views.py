@@ -19,8 +19,10 @@ class BookListView(ListView):
     template_name = 'library/book_list.html'
 
     def post(self, request):
-        object_list = Book.objects.filter(
-            title__contains=request.POST.get('title'))
+        # Crows' OR library_book.title LIKE '%The%
+        query = ("SELECT * from library_book WHERE "
+                 "library_book.title LIKE '%{}%'").format(request.POST.get('title'))
+        object_list = Book.objects.raw(query)
 
         return render(request,
                       self.template_name,
