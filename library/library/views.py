@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import render
 
 from .models import Book, Author
 
@@ -11,6 +12,17 @@ class HomePageView(TemplateView):
 class BookListView(ListView):
     model = Book
     paginate_by = 10
+    template_name = 'library/book_list.html'
+
+    def post(self, request):
+        # Crows' OR library_book.title LIKE '%The%
+
+        object_list = Book.objects.filter(
+            title__contains=request.POST.get('title'))
+
+        return render(request,
+                      self.template_name,
+                      {'object_list': object_list})
 
 
 class BookDetailView(DetailView):

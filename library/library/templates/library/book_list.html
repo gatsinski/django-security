@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <form method="POST" action="">
+    {% csrf_token %}
+    <input type="text" name="title" />
+    <input type="submit" value="Search titles" />
+  </form>
+
   <ul>
     {% for book in object_list %}
       <li>
