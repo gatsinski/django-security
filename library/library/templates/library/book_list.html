@@ -12,7 +12,7 @@
       <li>
         <a href="{% url 'book_detail' book.pk %}">
           <h2>
-            {{ book.title }}
+            {{ book.title|safe }}
           </h2>
         </a>
       </li>

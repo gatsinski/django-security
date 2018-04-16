@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ object.title }}</h1>
+  <h1>{{ object.title|safe }}</h1>
   <ul>
-    {% for author in object.authors.all %}
-      <li>
-        <a href="{% url 'author_detail' author.pk %}">
-          {{ author.name }}
-        </a>
-      </li>
-    {% endfor %}
+    {% autoescape off %}
+      {% for author in object.authors.all %}
+        <li>
+          <a href="{% url 'author_detail' author.pk %}">
+            {{ author.name }}
+          </a>
+        </li>
+      {% endfor %}
+    {% endautoescape %}
   </ul>
   <p>
     <a href="{% url 'book_list' %}">Back to book list</a>
