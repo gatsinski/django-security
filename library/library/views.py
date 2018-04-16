@@ -1,6 +1,10 @@
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
 
 from .models import Book, Author
 
@@ -36,6 +40,10 @@ class BookCreateView(PermissionRequiredMixin, CreateView):
     model = Book
     fields = ['title', 'pages', 'authors', 'genres', 'publishers']
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class AuthorListView(ListView):
     model = Author
@@ -44,3 +52,18 @@ class AuthorListView(ListView):
 
 class AuthorDetailView(DetailView):
     model = Author
+
+
+@csrf_exempt
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+        return redirect('book_list')
+    else:
+        return render(request,
+                      'registration/login.html',
+                      {'form': AuthenticationForm})
