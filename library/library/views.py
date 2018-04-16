@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
-
 from .models import Book, Author
 
 
@@ -31,7 +30,7 @@ class BookDetailView(DetailView):
     model = Book
 
 
-class BookCreateView(PermissionRequiredMixin, CreateView):
+class BookCreateView(CreateView):
     permission_required = 'books.can_add'
     model = Book
     fields = ['title', 'pages', 'authors', 'genres', 'publishers']
