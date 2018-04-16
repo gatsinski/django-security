@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .views import (HomePageView, BookListView, BookDetailView, BookCreateView,
-                    AuthorListView, AuthorDetailView)
+                    AuthorListView, AuthorDetailView, ProfilePageView)
 
 
 urlpatterns = [
@@ -30,5 +30,6 @@ urlpatterns = [
     path('authors/<int:pk>/',
          AuthorDetailView.as_view(),
          name='author_detail'),
+    path('accounts/profile/', ProfilePageView.as_view(), name='profile'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

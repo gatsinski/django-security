@@ -9,6 +9,10 @@ class HomePageView(TemplateView):
     template_name = 'library/index.html'
 
 
+class ProfilePageView(TemplateView):
+    template_name = 'library/profile.html'
+
+
 class BookListView(ListView):
     model = Book
     paginate_by = 10
