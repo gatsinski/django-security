@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'ALLOW'  # This should make the header invalid
+
 ROOT_URLCONF = 'library.urls'
 
 TEMPLATES = [
